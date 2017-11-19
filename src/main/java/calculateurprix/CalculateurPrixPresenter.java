@@ -1,6 +1,8 @@
 package calculateurprix;
 
 
+import javax.swing.*;
+
 public class CalculateurPrixPresenter {
 
     public enum Pays {
@@ -21,9 +23,14 @@ public class CalculateurPrixPresenter {
     }
 
     public void onComputeButtonClicked(String montantArticleAsText, String quantiteArticleAsText, Pays pays) {
-        float montant = Float.valueOf(montantArticleAsText)*Float.valueOf(quantiteArticleAsText);
-        calculateurPrixView.afficherMontantHT(montant);
-        calculateurPrixView.afficherMontantTTC(montant*(pays.getValue()/100f+1));
+        try{
+            float montant = Float.valueOf(montantArticleAsText)*Integer.valueOf(quantiteArticleAsText);
+            calculateurPrixView.afficherMontantHT(montant);
+            calculateurPrixView.afficherMontantTTC(montant*(pays.getValue()/100f+1));
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Les données fournies sont erronées", "Erreur",JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }
